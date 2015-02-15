@@ -94,8 +94,4 @@ public class ClassLoaderMap {
 			return sb.toString();
 		}
 	}
-	
-	public static void main(String[] args) {
-		System.out.println("/hola/quease".replaceAll("[^a-zA-Z0-9]", "_"));;
-	}
 }

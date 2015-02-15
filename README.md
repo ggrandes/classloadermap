@@ -43,7 +43,8 @@ public class ExampleContextListener implements ServletContextListener {
 	public void contextInitialized(final ServletContextEvent contextEvent) {
 		final ServletContext ctx = contextEvent.getServletContext();
 		final String path = ctx.getContextPath();
-		final String name = path.isEmpty() ? "ROOT" : path.replaceAll("[^a-zA-Z0-9]", "_");
+		final String name = path.isEmpty() ? 
+			"ROOT" : path.replaceAll("[^a-zA-Z0-9]", "_");
 		// put name in decoupled mode
 		ClassLoaderMap.put(this.getClass(), ExampleConstants.PROP, name);
 	}
@@ -54,7 +55,8 @@ public class ExampleContextListener implements ServletContextListener {
 // Tomcat Servlet
 public class ExampleServlet extends HttpServlet {
 	@Override
-	protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
+	protected void doGet(final HttpServletRequest request, 
+			final HttpServletResponse response)
 			throws ServletException, IOException {
 		final PrintWriter out = response.getWriter();
 		out.println(new ExampleID().getAppID());

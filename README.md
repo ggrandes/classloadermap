@@ -2,7 +2,7 @@
 
 When you want same "System Property" name, but with different value by ClassLoader. ClassLoaderMap is Hierarchical Map associated to a ClassLoader. Open Source Java project under Apache License v2.0
 
-### Current Devel Version is [1.0.0](https://search.maven.org/#search|ga|1|g%3Aorg.javastack%20a%3Aclassloadermap)
+### Current Stable Version is [1.0.0](https://search.maven.org/#search|ga|1|g%3Aorg.javastack%20a%3Aclassloadermap)
 
 ---
 

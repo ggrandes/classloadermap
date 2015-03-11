@@ -50,15 +50,16 @@ public class ClassLoaderMap {
 	}
 
 	/**
-	 * Returns the value to which the specified key is mapped,
-	 * or {@code null} if this map contains no mapping for the key.
+	 * Returns the value to which the specified key is mapped, or {@code def value} if this map contains no
+	 * mapping for the key.
 	 * 
 	 * @param clazz class reference (for classloader namespace)
 	 * @param key the key whose associated value is to be returned
-	 * @return the value to which the specified key is mapped, or {@code null} if this map contains no mapping
+	 * @param def a default value.
+	 * @return the value to which the specified key is mapped, or {@code def} if this map contains no mapping
 	 *         for the key
 	 */
-	public static String get(final Class<?> clazz, final String key) {
+	public static String get(final Class<?> clazz, final String key, final String def) {
 		ClassLoader classLoader = clazz.getClassLoader();
 		if (classLoader == null)
 			classLoader = ClassLoader.getSystemClassLoader();
@@ -72,7 +73,21 @@ public class ClassLoaderMap {
 				classLoader = classLoader.getParent();
 			}
 		}
-		return null;
+		return def;
+	}
+
+	/**
+	 * Returns the value to which the specified key is mapped, or System.getProperty(key) if not found, or
+	 * {@code null} if this map contains no mapping for the key.
+	 * 
+	 * @param clazz class reference (for classloader namespace)
+	 * @param key the key whose associated value is to be returned
+	 * @return the value to which the specified key is mapped, or {@code null} if this map contains no mapping
+	 *         for the key
+	 * @see #get(Class, String, String)
+	 */
+	public static String get(final Class<?> clazz, final String key) {
+		return get(clazz, key, null);
 	}
 
 	/**

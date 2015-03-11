@@ -50,7 +50,7 @@ public class ClassLoaderMap {
 	}
 
 	/**
-	 * Returns the value to which the specified key is mapped, or {@code def value} if this map contains no
+	 * Returns the value to which the specified key is mapped, or {@code def} if this map contains no
 	 * mapping for the key.
 	 * 
 	 * @param clazz class reference (for classloader namespace)
@@ -77,8 +77,8 @@ public class ClassLoaderMap {
 	}
 
 	/**
-	 * Returns the value to which the specified key is mapped, or System.getProperty(key) if not found, or
-	 * {@code null} if this map contains no mapping for the key.
+	 * Returns the value to which the specified key is mapped, or {@code null} if this map contains no mapping
+	 * for the key.
 	 * 
 	 * @param clazz class reference (for classloader namespace)
 	 * @param key the key whose associated value is to be returned

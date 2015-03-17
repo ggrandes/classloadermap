@@ -2,13 +2,22 @@
 
 When you want same "System Property" name, but with different value by ClassLoader. ClassLoaderMap is Hierarchical Map associated to a ClassLoader. Open Source Java project under Apache License v2.0
 
-### Current Stable Version is [1.0.0](https://search.maven.org/#search|ga|1|g%3Aorg.javastack%20a%3Aclassloadermap)
+### Current Stable Version is [1.0.1](https://search.maven.org/#search|ga|1|g%3Aorg.javastack%20a%3Aclassloadermap)
 
 ---
 
 ## DOC
 
 #### Usage Example
+
+```xml
+<!-- Context Listener for Servlet Container -->
+<!-- tomcat/conf/web.xml or WEB-INF/web.xml -->
+<listener>
+	<description>Register "servlet.ContextPath" and "servlet.ContextName" in ClassLoaderMap</description>
+	<listener-class>org.javastack.classloadermap.servlet.ClassLoaderMapContextListener</listener-class>
+</listener>
+```
 
 
 ```java
@@ -23,36 +32,29 @@ When you want same "System Property" name, but with different value by ClassLoad
 //  Webapp1   Webapp2
 //
 
-// Generic Code (
+/**
+ * Generic Code
+ */
 public class ExampleConstants {
 	public final String BASE_ID = "api.acme.com:";
-	public final String PROP = "myName";
 }
 public class ExampleID {
+    private static final CTX_PROP = "servlet.ContextName";
 	public String getAppID() {
+	    // Usage 1
+	    Class<?> ref = ExampleID.class;
+	    // Usage 2
+	    // ClassLoader ref = Thread.currentThread().getContextClassLoader();
+	    String webAppName = ClassLoaderMap.get(ref, CTX_PROP);
 		return ExampleConstants.BASE_ID +
 			// get name in decoupled mode 
-			ClassLoaderMap.get(this.getClass(), ExampleConstants.PROP);
+			(webAppName == null ? "standalone" : webAppName);
 	}
 }
 
-// Tomcat Context Listener
-@WebListener
-public class ExampleContextListener implements ServletContextListener {
-	@Override
-	public void contextInitialized(final ServletContextEvent contextEvent) {
-		final ServletContext ctx = contextEvent.getServletContext();
-		final String path = ctx.getContextPath();
-		final String name = path.isEmpty() ? 
-			"ROOT" : path.replaceAll("[^a-zA-Z0-9]", "_");
-		// put name in decoupled mode
-		ClassLoaderMap.put(this.getClass(), ExampleConstants.PROP, name);
-	}
-	
-	// ...
-}
-
-// Tomcat Servlet
+/**
+ * Tomcat Servlet
+ */
 public class ExampleServlet extends HttpServlet {
 	@Override
 	protected void doGet(final HttpServletRequest request, 
@@ -62,6 +64,10 @@ public class ExampleServlet extends HttpServlet {
 		out.println(new ExampleID().getAppID());
 	}
 }
+
+// Output will be:
+// api.acme.com:Webapp1
+// api.acme.com:Webapp2
 ```
 
 ---
@@ -73,8 +79,10 @@ Add the dependency to your pom.xml:
     <dependency>
         <groupId>org.javastack</groupId>
         <artifactId>classloadermap</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </dependency>
+
+If you want use ClassLoaderMapContextListener in global Tomcat web.xml (as infra-structure code), you can copy classloadermap-X.X.X.jar into ```${CATALINA_HOME}/lib/```
 
 ---
 Inspired in [ClassLoader](http://docs.oracle.com/javase/7/docs/api/java/lang/ClassLoader.html), this code is Java-minimalistic version.

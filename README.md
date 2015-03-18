@@ -82,7 +82,7 @@ Add the dependency to your pom.xml:
         <version>1.0.1</version>
     </dependency>
 
-If you want use ClassLoaderMapContextListener in global Tomcat web.xml (as infra-structure code), you can copy classloadermap-X.X.X.jar into ```${CATALINA_HOME}/lib/```
+###### Note: If you want use ClassLoaderMapContextListener in global Tomcat web.xml (as infra-structure code), you can copy classloadermap-X.X.X.jar into ```${CATALINA_HOME}/lib/```
 
 ---
 Inspired in [ClassLoader](http://docs.oracle.com/javase/7/docs/api/java/lang/ClassLoader.html), this code is Java-minimalistic version.

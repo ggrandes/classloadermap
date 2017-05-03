@@ -4,11 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.UUID;
 import java.util.WeakHashMap;
 
 public class ClassLoaderMap {
-	private static final UUID PROP_CONFIG_KEY = UUID.fromString("9d574593-efe1-40fb-a45c-78e2da3b2f41");
+	private static final String PROP_CONFIG_KEY = "9d574593-efe1-40fb-a45c-78e2da3b2f41";
 
 	@SuppressWarnings("unchecked")
 	private static final Map<ClassLoader, Map<String, String>> getConfig(final Properties prop) {

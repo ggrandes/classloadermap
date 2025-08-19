@@ -104,6 +104,8 @@ public class ClassLoaderMap {
 
 	/**
 	 * Dump ClassLoaderMap for debugging purposes
+	 * 
+	 * @return debug string
 	 */
 	public static String dump() {
 		final StringBuilder sb = new StringBuilder();
